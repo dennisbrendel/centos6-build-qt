@@ -18,7 +18,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
     curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.14/5.14.1/single/md5sums.txt && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
     echo -n "Verifying file.." && md5sum --quiet --check md5sums.txt && echo " done" && \
-    echo "Extracting qt5.. " && tar xf qt-everywhere-src-5.14.1.tar.xz && echo " done" && \
+    echo -n "Extracting qt5.. " && tar xf qt-everywhere-src-5.14.1.tar.xz && echo " done" && \
     mkdir build && cd build && \
     ../qt-everywhere-src-5.14.1/configure --prefix=/opt/qt-5.14.1-gcc   \
                 -opensource -confirm-license \
