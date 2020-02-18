@@ -13,7 +13,6 @@ ENV CC=/opt/$gcc/bin/gcc
 ENV CXX=/opt/$gcc/bin/g++
 
 RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel && \
-    yum clean all && \
     echo "Downlooading qt5: " && \
     curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/5.14/5.14.1/single/qt-everywhere-src-5.14.1.tar.xz && \
     curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.14/5.14.1/single/md5sums.txt && \
@@ -38,5 +37,6 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -no-glib                  && \
     gmake --jobs=$(nproc --all) && gmake install   && \
     yum -y history undo last && \
+    yum clean all && \
     cd /build && rm -rf *
 
