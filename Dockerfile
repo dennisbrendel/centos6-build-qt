@@ -76,6 +76,7 @@ RUN yum -y install centos-release-scl && \
     sed --in-place '/UNUM_NINE_DIGIT_SYMBOL/d'  ../Source/WebCore/platform/text/LocaleICU.cpp && \
 
     source /opt/rh/rh-ruby23/enable && \
+    source /opt/rh/python27/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
                                    -DQt5_DIR=/opt/qt-5.14.1/lib/cmake/Qt5 \
                                    -DCMAKE_INSTALL_PREFIX=/opt/qt-5.14.1  \
