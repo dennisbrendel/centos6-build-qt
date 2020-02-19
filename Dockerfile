@@ -53,7 +53,7 @@ RUN yum -y install centos-release-scl && \
     # new in ICU 4.4, but we are only at 4.2. It's basically about character comparison which we don't care about
     sed --in-place 's/USEARCH_STANDARD_ELEMENT_COMPARISON/USEARCH_ON/'          ../Source/WebCore/editing/TextIterator.cpp && \
     sed --in-place 's/USEARCH_PATTERN_BASE_WEIGHT_IS_WILDCARD/USEARCH_ON/'      ../Source/WebCore/editing/TextIterator.cpp && \
-    sed --in-place 's/(USearchAttribute)USEARCH_ELEMENT_COMPARISON/USEARCH_ON/' ../Source/WebCore/editing/TextIterator.cpp && \
+    sed --in-place 's/USEARCH_ELEMENT_COMPARISON/(USearchAttribute)USEARCH_ON/' ../Source/WebCore/editing/TextIterator.cpp && \
     # Our ICU does not know that linebreak char, so purge it
     sed --in-place '/U_LB_CLOSE_PARENTHESIS/d'                    ../Source/WebCore/rendering/RenderRubyText.cpp && \
     # Something with overdrawing special characters which we most likely don't need to support
