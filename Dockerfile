@@ -109,5 +109,5 @@ RUN yum -y install centos-release-scl && \
                                    -DUSE_WOFF2:BOOL=OFF                   \
                                    -DCMAKE_BUILD_TYPE=Release          && \
     make --jobs=$(nproc --all) && \
-    make install
+    make install && rm -rf /build/*
 
