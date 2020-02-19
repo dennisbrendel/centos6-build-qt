@@ -62,6 +62,8 @@ RUN yum -y install centos-release-scl && \
     sed --in-place '/UBLOCK_ENCLOSED_IDEOGRAPHIC_SUPPLEMENT/d'    ../Source/WebCore/platform/graphics/FontCascade.cpp && \
     sed --in-place '/UBLOCK_HANGUL_JAMO_EXTENDED_A/d'             ../Source/WebCore/platform/graphics/FontCascade.cpp && \
     sed --in-place '/UBLOCK_HANGUL_JAMO_EXTENDED_B/d'             ../Source/WebCore/platform/graphics/FontCascade.cpp && \
+    # Some include is missing
+    sed --in-place '/Modules\/mediasession$/aModules\/mediasource/' ../Source/WebCore/CMakeLists.txt && \
 
     source /opt/rh/rh-ruby23/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
