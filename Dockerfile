@@ -47,8 +47,8 @@ RUN yum -y install centos-release-scl && \
                    libpng-devel libxml2-devel hyphen-devel libicu-devel && \
     git clone https://code.qt.io/qt/qtwebkit.git && \
     cd qtwebkit && \
-    git checkout origin/5.212
-RUN mkdir build && cd build && \
+    git checkout origin/5.212 && \
+    mkdir /build/qtwebkit/build && cd /build/qtwebkit/build && \
     sed --in-place 's/\(find_package(LibXml2\) 2.8.0/\1 2.7.0/' ../Source/cmake/OptionsQt.cmake && \
     # new in ICU 4.4, but we are only at 4.2. It's basically about character comparison which we don't care about
     sed --in-place 's/USEARCH_STANDARD_ELEMENT_COMPARISON/USEARCH_ON/'          ../Source/WebCore/editing/TextIterator.cpp && \
