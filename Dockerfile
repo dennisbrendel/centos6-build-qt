@@ -43,7 +43,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
 
 COPY --from=sharpreflections/centos6-build-cmake $prefix $prefix
 RUN yum -y install centos-release-scl && \
-    yum -y install gperf python27 rh-ruby23-devel mesa-libGL-devel sqlite-devel libjpeg-turbo-devel zlib-devel \
+    yum -y install gperf python27 rh-ruby23 mesa-libGL-devel sqlite-devel libjpeg-turbo-devel zlib-devel \
                    libpng-devel libxml2-devel hyphen-devel && \
     git clone https://code.qt.io/qt/qtwebkit.git && \
     cd qtwebkit && \
