@@ -2,6 +2,9 @@ FROM sharpreflections/centos6-build-gcc
 LABEL maintainer="dennis.brendel@sharpreflections.com"
 
 ARG gcc=gcc-5.5.0
+ARG qt_major=5.9
+ARG qt_minor=.9
+ARG qt_string=qt-everywhere-opensource-src
 
 ARG prefix=/opt
 
@@ -14,13 +17,13 @@ ENV CXX=/opt/$gcc/bin/g++
 
 RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel && \
     echo "Downlooading qt5: " && \
-    curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/5.9/5.9.9/single/qt-everywhere-opensource-src-5.9.9.tar.xz && \
-    curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.9/5.9.9/single/md5sums.txt && \
+    curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/${qt_string}-${qt_major}${qt_minor}.tar.xz && \
+    curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/md5sums.txt && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
     echo -n "Verifying file.." && md5sum --quiet --check md5sums.txt && echo " done" && \
-    echo -n "Extracting qt5.. " && tar xf qt-everywhere-opensource-src-5.9.9.tar.xz && echo " done" && \
+    echo -n "Extracting qt5.. " && tar xf ${qt_string}-${qt_major}${qt_minor}.tar.xz && echo " done" && \
     mkdir build && cd build && \
-    ../qt-everywhere-opensource-src-5.9.9/configure --prefix=/opt/qt-5.9.9-gcc   \
+    ../${qt_string}-${qt_major}${qt_minor}/configure --prefix=${prefix}/qt-${qt_major}${qt_minor}-gcc \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
@@ -78,8 +81,8 @@ RUN yum -y install centos-release-scl && \
     source /opt/rh/rh-ruby23/enable && \
     source /opt/rh/python27/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
-                                   -DQt5_DIR=/opt/qt-5.14.1-gcc/lib/cmake/Qt5 \
-                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-5.14.1-gcc  \
+                                   -DQt5_DIR=/opt/qt-${qt_major}${qt_minor}-gcc/lib/cmake/Qt5 \
+                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_major}${qt_minor}-gcc  \
                                    -DCMAKE_PREFIX_PATH="/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/" \
                                    -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
                                    -DENABLE_API_TESTS:BOOL=ON             \
