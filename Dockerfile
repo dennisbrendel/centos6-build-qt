@@ -14,13 +14,13 @@ ENV CXX=/opt/$gcc/bin/g++
 
 RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel && \
     echo "Downlooading qt5: " && \
-    curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/5.14/5.14.1/single/qt-everywhere-src-5.14.1.tar.xz && \
-    curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.14/5.14.1/single/md5sums.txt && \
+    curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/5.9/5.9.9/single/qt-everywhere-opensource-src-5.9.9.tar.xz && \
+    curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.9/5.9.9/single/md5sums.txt && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
     echo -n "Verifying file.." && md5sum --quiet --check md5sums.txt && echo " done" && \
-    echo -n "Extracting qt5.. " && tar xf qt-everywhere-src-5.14.1.tar.xz && echo " done" && \
+    echo -n "Extracting qt5.. " && tar xf qt-everywhere-opensource-src-5.9.9.tar.xz && echo " done" && \
     mkdir build && cd build && \
-    ../qt-everywhere-src-5.14.1/configure --prefix=/opt/qt-5.14.1-gcc   \
+    ../qt-everywhere-opensource-src-5.9.9/configure --prefix=/opt/qt-5.9.9-gcc   \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
