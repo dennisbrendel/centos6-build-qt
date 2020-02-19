@@ -78,22 +78,35 @@ RUN yum -y install centos-release-scl && \
     source /opt/rh/rh-ruby23/enable && \
     source /opt/rh/python27/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
-                                   -DQt5_DIR=/opt/qt-5.14.1/lib/cmake/Qt5 \
-                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-5.14.1  \
+                                   -DQt5_DIR=/opt/qt-5.14.1-gcc/lib/cmake/Qt5 \
+                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-5.14.1-gcc  \
                                    -DCMAKE_PREFIX_PATH="/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/" \
-                                   -DENABLE_XSLT:BOOL=OFF                 \
-                                   -DENABLE_OPENGL:BOOL=OFF               \
-                                   -DENABLE_GEOLOCATION:BOOL=OFF          \
-                                   -DENABLE_VIDEO:BOOL=OFF                \
-                                   -DENABLE_LEGACY_WEB_AUDIO:BOOL=OFF     \
+                                   -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
                                    -DENABLE_API_TESTS:BOOL=ON             \
                                    -DENABLE_CSS_GRID_LAYOUT:BOOL=OFF      \
+                                   -DENABLE_DEVICE_ORIENTATION:BOOL=OFF   \
+                                   -DENABLE_DRAG_SUPPORT:BOOL=OFF         \
+                                   -DENABLE_FULLSCREEN_API:BOOL=OFF       \
                                    -DENABLE_GAMEPAD_DEPRECATED:BOOL=OFF   \
+                                   -DENABLE_GEOLOCATION:BOOL=OFF          \
+                                   -DENABLE_ICONDATABASE:BOOL=OFF         \
                                    -DENABLE_INSPECTOR_UI:BOOL=OFF         \
+                                   -DENABLE_JIT:BOOL=OFF                  \
+                                   -DENABLE_LEGACY_WEB_AUDIO:BOOL=OFF     \
                                    -DENABLE_NETSCAPE_PLUGIN_API:BOOL=OFF  \
+                                   -DENABLE_OPENGL:BOOL=OFF               \
                                    -DENABLE_PRINT_SUPPORT:BOOL=OFF        \
+                                   -DENABLE_SAMPLING_PROFILER:BOOL=OFF    \
+                                   -DENABLE_SPELLCHECK:BOOL=OFF           \
+                                   -DENABLE_TOUCH_EVENTS:BOOL=OFF         \
+                                   -DENABLE_VIDEO:BOOL=OFF                \
+                                   -DENABLE_WEBKIT2:BOOL=OFF              \
+                                   -DENABLE_XSLT:BOOL=OFF                 \
                                    -DUSE_GSTREAMER:BOOL=OFF               \
+                                   -DUSE_LIBHYPHEN:BOOL=OFF               \
                                    -DENABLE_INTL:BOOL=OFF                 \
+                                   -DUSE_SYSTEM_MALLOC:BOOL=ON            \
+                                   -DUSE_WOFF2:BOOL=OFF                   \
                                    -DCMAKE_BUILD_TYPE=Release          && \
     make --jobs=$(nproc --all) && \
     make install
