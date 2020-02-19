@@ -64,6 +64,16 @@ RUN yum -y install centos-release-scl && \
     sed --in-place '/UBLOCK_HANGUL_JAMO_EXTENDED_B/d'             ../Source/WebCore/platform/graphics/FontCascade.cpp && \
     # Some include is missing
     sed --in-place '/Modules\/mediasession$/aModules\/mediasource/' ../Source/WebCore/CMakeLists.txt && \
+    # Added with ICU 4.6 - number format symbols
+    sed --in-place '/UNUM_ONE_DIGIT_SYMBOL/d'   ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_TWO_DIGIT_SYMBOL/d'   ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_THREE_DIGIT_SYMBOL/d' ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_FOUR_DIGIT_SYMBOL/d'  ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_FIVE_DIGIT_SYMBOL/d'  ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_SIX_DIGIT_SYMBOL/d'   ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_SEVEN_DIGIT_SYMBOL/d' ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_EIGHT_DIGIT_SYMBOL/d' ../Source/WebCore/platform/text/LocaleICU.cpp && \
+    sed --in-place '/UNUM_NINE_DIGIT_SYMBOL/d'  ../Source/WebCore/platform/text/LocaleICU.cpp && \
 
     source /opt/rh/rh-ruby23/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
