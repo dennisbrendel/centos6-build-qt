@@ -36,7 +36,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -no-dbus                     \
                 -no-gtk                      \
                 -no-glib                  && \
-    gmake --jobs=$(nproc --all) && gmake install   && \
+    make --jobs=$(nproc --all) && make install   && \
     yum -y history undo last && \
     yum clean all && \
     cd /build && rm -rf *
