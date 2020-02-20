@@ -33,6 +33,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -qt-libjpeg                  \
                 -qt-libpng                   \
                 -nomake examples             \
+                -nomake tests                \
                 -no-rpath                    \
                 -no-cups                     \
                 -no-iconv                    \
