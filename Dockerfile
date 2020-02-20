@@ -16,7 +16,7 @@ ENV CC=/opt/$gcc/bin/gcc
 ENV CXX=/opt/$gcc/bin/g++
 
 RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel && \
-    echo "Downlooading qt5: " && \
+    echo "Downloading qt5: " && \
     curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/${qt_string}-${qt_major}${qt_minor}.tar.xz && \
     curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/md5sums.txt && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
