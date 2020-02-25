@@ -1,7 +1,7 @@
-FROM sharpreflections/centos6-build-gcc
+FROM sharpreflections/centos6-build-gcc:gcc-4.8.5
 LABEL maintainer="dennis.brendel@sharpreflections.com"
 
-ARG gcc=gcc-5.5.0
+ARG gcc=gcc-4.8.5
 ARG qt_major=5.9
 ARG qt_minor=.9
 ARG qt_string=qt-everywhere-opensource-src
