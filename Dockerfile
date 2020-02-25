@@ -86,14 +86,16 @@ RUN yum -y install centos-release-scl && \
                                    -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_major}${qt_minor}-gcc  \
                                    -DCMAKE_PREFIX_PATH="/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/" \
                                    -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
-                                   -DENABLE_API_TESTS:BOOL=ON             \
+                                   -DENABLE_API_TESTS:BOOL=OFF            \
                                    -DENABLE_CSS_GRID_LAYOUT:BOOL=OFF      \
+                                   -DENABLE_DATABASE_PROCESS:BOOL=OFF     \
                                    -DENABLE_DEVICE_ORIENTATION:BOOL=OFF   \
                                    -DENABLE_DRAG_SUPPORT:BOOL=OFF         \
                                    -DENABLE_FULLSCREEN_API:BOOL=OFF       \
                                    -DENABLE_GAMEPAD_DEPRECATED:BOOL=OFF   \
                                    -DENABLE_GEOLOCATION:BOOL=OFF          \
                                    -DENABLE_ICONDATABASE:BOOL=OFF         \
+                                   -DENABLE_INDEXED_DATABASE:BOOL=OFF     \
                                    -DENABLE_INSPECTOR_UI:BOOL=OFF         \
                                    -DENABLE_JIT:BOOL=OFF                  \
                                    -DENABLE_LEGACY_WEB_AUDIO:BOOL=OFF     \
