@@ -23,7 +23,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
     echo -n "Verifying file.." && md5sum --quiet --check md5sums.txt && echo " done" && \
     echo -n "Extracting qt5.. " && tar xf ${qt_string}-${qt_major}${qt_minor}.tar.xz && echo " done" && \
     mkdir build && cd build && \
-    ../${qt_string}-${qt_major}${qt_minor}/configure --prefix=${prefix}/qt-${qt_major}${qt_minor}-gcc \
+    ../${qt_string}-${qt_major}${qt_minor}/configure --prefix=${prefix}/qt-${qt_major}${qt_minor}-gcc485 \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
@@ -45,7 +45,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
     yum clean all && \
     cd /build && rm -rf *
 
-ENV LD_LIBRARY_PATH=$prefix/qt-${qt_major}${qt_minor}-gcc/lib:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=$prefix/qt-${qt_major}${qt_minor}-gcc485/lib:$LD_LIBRARY_PATH
 COPY --from=sharpreflections/centos6-build-cmake $prefix $prefix
 RUN yum -y install centos-release-scl && \
     yum -y install gperf python27 rh-ruby23 mesa-libGL-devel sqlite-devel libjpeg-turbo-devel zlib-devel \
@@ -80,14 +80,14 @@ RUN yum -y install centos-release-scl && \
     sed --in-place '/UNUM_EIGHT_DIGIT_SYMBOL/d' ../Source/WebCore/platform/text/LocaleICU.cpp && \
     sed --in-place '/UNUM_NINE_DIGIT_SYMBOL/d'  ../Source/WebCore/platform/text/LocaleICU.cpp && \
     # Fix Qt private include paths
-    sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}" "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}/QtGui"):' $prefix/qt-${qt_major}${qt_minor}-gcc/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake && \
-    sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}" "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}/QtCore"):' $prefix/qt-${qt_major}${qt_minor}-gcc/lib/cmake/Qt5Core/Qt5CoreConfig.cmake && \
+    sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}" "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}/QtGui"):' $prefix/qt-${qt_major}${qt_minor}-gcc485/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake && \
+    sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}" "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}/QtCore"):' $prefix/qt-${qt_major}${qt_minor}-gcc485/lib/cmake/Qt5Core/Qt5CoreConfig.cmake && \
 
     source /opt/rh/rh-ruby23/enable && \
     source /opt/rh/python27/enable && \
     /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
-                                   -DQt5_DIR=/opt/qt-${qt_major}${qt_minor}-gcc/lib/cmake/Qt5 \
-                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_major}${qt_minor}-gcc  \
+                                   -DQt5_DIR=/opt/qt-${qt_major}${qt_minor}-gcc485/lib/cmake/Qt5 \
+                                   -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_major}${qt_minor}-gcc485 \
                                    -DCMAKE_PREFIX_PATH="/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/" \
                                    -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
                                    -DENABLE_API_TESTS:BOOL=OFF            \
