@@ -64,7 +64,6 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -skip qtserialbus            \
                 -skip qtserialport           \
                 -skip qtspeech               \
-                -skip qtsvg                  \
                 -skip qttools                \
                 -skip qttranslations         \
                 -skip qtvirtualkeyboard      \
