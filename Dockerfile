@@ -36,6 +36,8 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -qt-libpng                   \
                 -nomake examples             \
                 -nomake tests                \
+                -no-sse4.1 -no-sse4.2        \
+                -no-avx -no-avx2 -no-avx512  \
                 -no-rpath                    \
                 -no-cups                     \
                 -no-iconv                    \
