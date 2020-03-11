@@ -152,5 +152,6 @@ RUN yum -y install centos-release-scl && \
                                    -DUSE_WOFF2:BOOL=OFF                   \
                                    -DCMAKE_BUILD_TYPE=Release          && \
     make --jobs=$(nproc --all) && \
-    make install && rm -rf /build/*
+    make install && rm -rf /build/* && \
+    rm -rf $prefix/cmake*  # only include Qt/QtWebKit
 
