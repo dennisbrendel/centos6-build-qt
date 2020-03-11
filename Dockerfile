@@ -43,7 +43,37 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -no-iconv                    \
                 -no-dbus                     \
                 -no-gtk                      \
-                -no-glib                  && \
+                -no-glib                     \
+                -skip qt3d                   \
+                -skip qtandroidextras        \
+                -skip qtcanvas3d             \
+                -skip qtcharts               \
+                -skip qtconnectivity         \
+                -skip qtdatavis3d            \
+                -skip qtdeclarative          \
+                -skip qtgamepad              \
+                -skip qtlocation             \
+                -skip qtmacextras            \
+                -skip qtmultimedia           \
+                -skip qtnetworkauth          \
+                -skip qtpurchasing           \
+                -skip qtquickcontrols        \
+                -skip qtquickcontrols2       \
+                -skip qtscript               \
+                -skip qtsensors              \
+                -skip qtserialbus            \
+                -skip qtserialport           \
+                -skip qtspeech               \
+                -skip qtsvg                  \
+                -skip qttools                \
+                -skip qttranslations         \
+                -skip qtvirtualkeyboard      \
+                -skip qtwayland              \
+                -skip qtwebchannel           \
+                -skip qtwebengine            \
+                -skip qtwebsockets           \
+                -skip qtwinextras            \
+                -skip qtxmlpatterns       && \
     make --jobs=$(nproc --all) && make install   && \
     yum -y history undo last && \
     yum clean all && \
