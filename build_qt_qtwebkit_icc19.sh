@@ -137,26 +137,25 @@ mkdir build && cd build
                 -no-gtk                      \
                 -no-glib                     \
                 -skip qt3d                   \
+                -skip qtactiveqt             \
                 -skip qtandroidextras        \
                 -skip qtcanvas3d             \
                 -skip qtcharts               \
                 -skip qtconnectivity         \
                 -skip qtdatavis3d            \
-                -skip qtdeclarative          \
                 -skip qtgamepad              \
+                -skip qtgraphicaleffects     \
+                -skip qtimageformats         \
                 -skip qtlocation             \
                 -skip qtmacextras            \
                 -skip qtmultimedia           \
                 -skip qtnetworkauth          \
                 -skip qtpurchasing           \
                 -skip qtquickcontrols        \
-                -skip qtquickcontrols2       \
-                -skip qtscript               \
                 -skip qtsensors              \
                 -skip qtserialbus            \
                 -skip qtserialport           \
                 -skip qtspeech               \
-                -skip qttools                \
                 -skip qttranslations         \
                 -skip qtvirtualkeyboard      \
                 -skip qtwayland              \
@@ -165,6 +164,18 @@ mkdir build && cd build
                 -skip qtwebsockets           \
                 -skip qtwinextras            \
                 -skip qtxmlpatterns
+# Not skipping: qtbase
+#               qtdeclarative
+#               qtdoc
+#               qtimageformats
+#               qtquickcontrols2
+#               qtremoteobjects
+#               qtscxml
+#               qtscript
+#               qtsvg
+#               qttools
+#               qtwebview
+#               qtx11extras
 
 make --jobs=$(nproc --all)
 make install
