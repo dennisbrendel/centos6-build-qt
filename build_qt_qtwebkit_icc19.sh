@@ -177,7 +177,8 @@ mkdir build && cd build
 #               qtwebview
 #               qtx11extras
 
-make --jobs=$(nproc --all)
+# Only two build jobs because the Intel Compiler 19.0 tends to segfault sometimes with many jobs
+make --jobs=2
 make install
 rm -rf /build/*
 
