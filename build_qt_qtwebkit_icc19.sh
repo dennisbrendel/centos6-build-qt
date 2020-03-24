@@ -162,8 +162,7 @@ mkdir build && cd build
                 -skip qtwebchannel           \
                 -skip qtwebengine            \
                 -skip qtwebsockets           \
-                -skip qtwinextras            \
-                -skip qtxmlpatterns
+                -skip qtwinextras
 # Not skipping: qtbase
 #               qtdeclarative
 #               qtdoc
@@ -176,6 +175,7 @@ mkdir build && cd build
 #               qttools
 #               qtwebview
 #               qtx11extras
+#               qtxmlpatterns
 
 # Only two build jobs because the Intel Compiler 19.0 tends to segfault sometimes with many jobs
 make --jobs=2
