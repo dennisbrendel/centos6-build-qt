@@ -70,8 +70,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -skip qtwebchannel           \
                 -skip qtwebengine            \
                 -skip qtwebsockets           \
-                -skip qtwinextras            \
-                -skip qtxmlpatterns       && \
+                -skip qtwinextras         && \
 # Not skipping: qtbase
 #               qtdeclarative
 #               qtdoc
@@ -84,6 +83,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
 #               qttools
 #               qtwebview
 #               qtx11extras
+#               qtxmlpatterns
     make --jobs=$(nproc --all) && make install   && \
     yum -y history undo last && \
     yum clean all && \
