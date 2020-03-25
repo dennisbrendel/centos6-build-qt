@@ -136,6 +136,7 @@ mkdir build && cd build
                 -no-dbus                     \
                 -no-gtk                      \
                 -no-glib                     \
+                -no-icu                      \
                 -skip qt3d                   \
                 -skip qtactiveqt             \
                 -skip qtandroidextras        \
