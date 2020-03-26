@@ -44,6 +44,7 @@ RUN yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-dev
                 -no-dbus                     \
                 -no-gtk                      \
                 -no-glib                     \
+                -no-icu                      \
                 -skip qt3d                   \
                 -skip qtactiveqt             \
                 -skip qtandroidextras        \
