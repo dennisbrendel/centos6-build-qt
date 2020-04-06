@@ -184,6 +184,27 @@ make install
 rm -rf /build/*
 
 ########################################
+# libICU
+########################################
+# WebKit needs libICU. Years ago there was a different implementation, that made use of glib. Since we also don't
+# want that, try to build WebKit against ICU with --enable-renaming=no, so functions are not versioned and we
+# rely on binary compatibility
+
+RUN cd /build && \
+     git clone https://github.com/unicode-org/icu.git && \
+     cd icu && git checkout --track icu-release-4-2-1 && \
+     mkdir build && cd build && \
+     ../runConfigureICU Linux/ICC && \
+     ../configure --prefix=/opt/icu-4.2.1 --enable-renaming=no --enable-samples=no && \
+     make --jobs=$(nproc) && \
+     make install && \
+     rm -rf /build/*
+
+########################################
+# libICU end
+########################################
+
+########################################
 # QtWebkit
 ########################################
 
@@ -268,6 +289,9 @@ export CXXFLAGS=-w
 /opt/cmake-3.11.4/bin/cmake .. -DPORT=Qt \
                                -DQt5_DIR=/opt/qt-${qt_version}-icc19/lib/cmake/Qt5 \
                                -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_version}-icc19  \
+                               -DICU_INCLUDE_DIR:PATH=/opt/icu-4.2.1/include/ \
+                               -DICU_I18N_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libicui18n.so \
+                               -DICU_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libicuuc.so \
                                -DCMAKE_PREFIX_PATH='/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/' \
                                -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
                                -DENABLE_API_TESTS:BOOL=OFF            \
