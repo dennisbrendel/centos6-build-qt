@@ -190,15 +190,18 @@ rm -rf /build/*
 # want that, try to build WebKit against ICU with --enable-renaming=no, so functions are not versioned and we
 # rely on binary compatibility
 
-RUN cd /build && \
-     git clone https://github.com/unicode-org/icu.git && \
-     cd icu && git checkout --track icu-release-4-2-1 && \
-     mkdir build && cd build && \
-     ../runConfigureICU Linux/ICC && \
-     ../configure --prefix=/opt/icu-4.2.1 --enable-renaming=no --enable-samples=no && \
-     make --jobs=$(nproc) && \
-     make install && \
-     rm -rf /build/*
+cd /build
+git clone https://github.com/unicode-org/icu.git
+cd icu && git checkout icu-release-4-2-1
+mkdir build && cd build
+../runConfigureICU Linux/ICC
+../configure --prefix=/opt/icu-4.2.1 \
+             --enable-static=yes --enable-shared=no \
+             --enable-renaming=no \
+             --enable-samples=no
+make --jobs=$(nproc)
+make install
+rm -rf /build/*
 
 ########################################
 # libICU end
