@@ -194,11 +194,11 @@ cd /build
 git clone https://github.com/unicode-org/icu.git
 cd icu && git checkout icu-release-4-2-1
 mkdir build && cd build
-../runConfigureICU Linux/ICC
-../configure --prefix=/opt/icu-4.2.1 \
-             --enable-static=yes --enable-shared=no \
-             --enable-renaming=no \
-             --enable-samples=no
+../source/runConfigureICU Linux/ICC
+../source/configure --prefix=/opt/icu-4.2.1 \
+                    --enable-static=no --enable-shared=yes \
+                    --enable-renaming=no \
+                    --enable-samples=no
 make --jobs=$(nproc)
 make install
 rm -rf /build/*
@@ -293,8 +293,8 @@ export CXXFLAGS=-w
                                -DQt5_DIR=/opt/qt-${qt_version}-icc19/lib/cmake/Qt5 \
                                -DCMAKE_INSTALL_PREFIX=/opt/qt-${qt_version}-icc19  \
                                -DICU_INCLUDE_DIR:PATH=/opt/icu-4.2.1/include/ \
-                               -DICU_I18N_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libicui18n.so \
-                               -DICU_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libicuuc.so \
+                               -DICU_I18N_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libsicui18n.so \
+                               -DICU_LIBRARY:FILEPATH=/opt/icu-4.2.1/lib/libsicuuc.so \
                                -DCMAKE_PREFIX_PATH='/opt/rh/python27/root/usr/;/opt/rh/rh-ruby23/root/usr/' \
                                -DENABLE_ACCELERATED_2D_CANVAS:BOOL=OFF\
                                -DENABLE_API_TESTS:BOOL=OFF            \
