@@ -98,7 +98,9 @@ $runtime run $ENV $MOUNT --interactive --tty --name centos6-build-qt-icc19 \
              sharpreflections/centos6-build-qt:qt-${qt_version}_icc-19.0_base bash -c "
 set -e
 
-yum -y install xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel fontconfig-devel
+yum -y install centos-release-scl
+yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel fontconfig-devel
+source /opt/rh/python27/enable
 
 cd /build
 echo \"Downloading Qt5 ${qt_version}:\"
@@ -152,7 +154,6 @@ mkdir build && cd build
                 -skip qtmultimedia           \
                 -skip qtnetworkauth          \
                 -skip qtpurchasing           \
-                -skip qtquickcontrols        \
                 -skip qtsensors              \
                 -skip qtserialbus            \
                 -skip qtserialport           \
@@ -160,20 +161,21 @@ mkdir build && cd build
                 -skip qttranslations         \
                 -skip qtvirtualkeyboard      \
                 -skip qtwayland              \
-                -skip qtwebchannel           \
-                -skip qtwebengine            \
                 -skip qtwebsockets           \
                 -skip qtwinextras
 # Not skipping: qtbase
 #               qtdeclarative
 #               qtdoc
 #               qtimageformats
+#               qtquickcontrols  # required by qtwebengine
 #               qtquickcontrols2
 #               qtremoteobjects
 #               qtscxml
 #               qtscript
 #               qtsvg
 #               qttools
+#               qtwebchannel     # required by qtwebengine
+#               qtwebengine
 #               qtwebview
 #               qtx11extras
 #               qtxmlpatterns
