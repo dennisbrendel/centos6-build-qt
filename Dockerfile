@@ -17,7 +17,8 @@ ENV CXX=/opt/$gcc/bin/g++
 
 RUN yum -y install centos-release-scl && \
     yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel \
-           fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel libXtst-devel && \
+           fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel \
+           libXtst-devel gperf expat-devel && \
     source /opt/rh/python27/enable && \
     echo "Downlooading qt5: " && \
     curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/${qt_string}-${qt_major}${qt_minor}.tar.xz && \
