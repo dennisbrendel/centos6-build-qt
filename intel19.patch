@@ -1,0 +1,110 @@
+diff -ur qt-everywhere-opensource-src-5.9.9.a/qtwebengine/mkspecs/features/functions.prf qt-everywhere-opensource-src-5.9.9.b/qtwebengine/mkspecs/features/functions.prf
+--- qt-everywhere-opensource-src-5.9.9.a/qtwebengine/mkspecs/features/functions.prf	2019-12-08 08:18:34.000000000 +0000
++++ qt-everywhere-opensource-src-5.9.9.b/qtwebengine/mkspecs/features/functions.prf	2020-06-22 13:22:36.060362753 +0000
+@@ -17,8 +17,6 @@
+   QT_FOR_CONFIG += gui-private
+   linux {
+     if(!gcc:!clang)|intel_icc {
+-      skipBuild("Qt WebEngine on Linux requires clang or GCC.")
+-      return(false)
+     }
+     gcc:!clang:!isGCCVersionSupported(): return(false)
+   } else:win32 {
+diff -ur qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp
+--- qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp	2019-12-05 18:23:22.000000000 +0000
++++ qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp	2020-06-23 15:05:02.558436210 +0000
+@@ -887,35 +887,6 @@
+   return result;
+ }
+ 
+-template <CSSValueID cssValueFor0, CSSValueID cssValueFor100>
+-Length StyleBuilderConverter::convertPositionLength(StyleResolverState& state,
+-                                                    const CSSValue& value) {
+-  if (value.isValuePair()) {
+-    const CSSValuePair& pair = toCSSValuePair(value);
+-    Length length = StyleBuilderConverter::convertLength(state, pair.second());
+-    if (toCSSIdentifierValue(pair.first()).getValueID() == cssValueFor0)
+-      return length;
+-    DCHECK_EQ(toCSSIdentifierValue(pair.first()).getValueID(), cssValueFor100);
+-    return length.subtractFromOneHundredPercent();
+-  }
+-
+-  if (value.isIdentifierValue()) {
+-    switch (toCSSIdentifierValue(value).getValueID()) {
+-      case cssValueFor0:
+-        return Length(0, Percent);
+-      case cssValueFor100:
+-        return Length(100, Percent);
+-      case CSSValueCenter:
+-        return Length(50, Percent);
+-      default:
+-        ASSERT_NOT_REACHED();
+-    }
+-  }
+-
+-  return StyleBuilderConverter::convertLength(state,
+-                                              toCSSPrimitiveValue(value));
+-}
+-
+ LengthPoint StyleBuilderConverter::convertPosition(StyleResolverState& state,
+                                                    const CSSValue& value) {
+   const CSSValuePair& pair = toCSSValuePair(value);
+diff -ur qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h
+--- qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h	2019-12-05 18:23:22.000000000 +0000
++++ qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h	2020-06-23 15:07:40.605237230 +0000
+@@ -31,6 +31,7 @@
+ #include "core/css/CSSStringValue.h"
+ #include "core/css/CSSValue.h"
+ #include "core/css/CSSValueList.h"
++#include "core/css/CSSValuePair.h"
+ #include "core/css/resolver/StyleResolverState.h"
+ #include "core/style/QuotesData.h"
+ #include "core/style/ShadowList.h"
+@@ -191,6 +192,36 @@
+       const CSSValue&);
+ };
+ 
++template <CSSValueID cssValueFor0, CSSValueID cssValueFor100>
++Length StyleBuilderConverter::convertPositionLength(StyleResolverState& state,
++                                                    const CSSValue& value) {
++  if (value.isValuePair()) {
++    const CSSValuePair& pair = toCSSValuePair(value);
++    Length length = StyleBuilderConverter::convertLength(state, pair.second());
++    if (toCSSIdentifierValue(pair.first()).getValueID() == cssValueFor0)
++      return length;
++    DCHECK_EQ(toCSSIdentifierValue(pair.first()).getValueID(), cssValueFor100);
++    return length.subtractFromOneHundredPercent();
++  }
++
++  if (value.isIdentifierValue()) {
++    switch (toCSSIdentifierValue(value).getValueID()) {
++      case cssValueFor0:
++        return Length(0, Percent);
++      case cssValueFor100:
++        return Length(100, Percent);
++      case CSSValueCenter:
++        return Length(50, Percent);
++      default:
++        ASSERT_NOT_REACHED();
++    }
++  }
++
++  return StyleBuilderConverter::convertLength(state,
++                                              toCSSPrimitiveValue(value));
++}
++
++
+ template <typename T>
+ T StyleBuilderConverter::convertComputedLength(StyleResolverState& state,
+                                                const CSSValue& value) {
+diff -ur qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h
+--- qt-everywhere-opensource-src-5.9.9.a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h	2019-12-05 18:23:22.000000000 +0000
++++ qt-everywhere-opensource-src-5.9.9.b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h	2020-06-23 14:07:12.001188888 +0000
+@@ -50,6 +50,7 @@
+  public:
+   using Visitor = blink::Visitor;
+   static const bool isGarbageCollected = true;
++  static void free(void*) {}
+ 
+   template <typename T>
+   static size_t quantizedSize(size_t count) {

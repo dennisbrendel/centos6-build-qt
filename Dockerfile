@@ -16,4 +16,5 @@ ENV CC=icc
 ENV CXX=icpc
 
 COPY --from=sharpreflections/centos6-build-cmake $prefix $prefix
+COPY intel19.patch /build/intel19.patch
 
