@@ -99,7 +99,10 @@ $runtime run $ENV $MOUNT --interactive --tty --name centos6-build-qt-icc19 \
 set -e
 
 yum -y install centos-release-scl
-yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel fontconfig-devel
+yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel \
+               fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel \
+               libXtst-devel gperf expat-devel
+
 source /opt/rh/python27/enable
 
 cd /build
@@ -145,6 +148,9 @@ mkdir build && cd build
                 -no-gtk                      \
                 -no-glib                     \
                 -no-icu                      \
+                -no-webrtc                   \
+                -no-pepper-plugins           \
+                -no-spellchecker             \
                 -skip qt3d                   \
                 -skip qtactiveqt             \
                 -skip qtandroidextras        \
