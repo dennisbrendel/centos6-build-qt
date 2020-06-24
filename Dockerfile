@@ -9,6 +9,7 @@ ARG qt_string=qt-everywhere-opensource-src
 ARG prefix=/opt
 
 WORKDIR /build/
+COPY versiontag599.patch /build/
 
 ENV PATH=$prefix/$gcc/bin:$PATH
 ENV LD_LIBRARY_PATH=$prefix/$gcc/lib64:$LD_LIBRARY_PATH
