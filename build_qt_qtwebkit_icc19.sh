@@ -198,7 +198,10 @@ make --jobs=$(nproc)
 make install
 
 rm -rf /build/*
+
+# Don't carry those over, only Qt5
 rm -rf $prefix/cmake*
+rm -rf $prefix/gcc*
 "
 
 $runtime commit centos6-build-qt-icc19 sharpreflections/centos6-build-qt:qt-5.9.9_icc-19.0
