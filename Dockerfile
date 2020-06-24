@@ -21,7 +21,7 @@ RUN yum -y install centos-release-scl && \
            fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel \
            libXtst-devel gperf expat-devel && \
     source /opt/rh/python27/enable && \
-    echo "Downlooading qt5: " && \
+    echo "Downloading Qt5: " && \
     curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/${qt_string}-${qt_major}${qt_minor}.tar.xz && \
     curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_major}/${qt_major}${qt_minor}/single/md5sums.txt && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
