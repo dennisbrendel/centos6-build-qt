@@ -193,7 +193,7 @@ mkdir build && cd build
 #               qtxmlpatterns
 
 # Only two build jobs because the Intel Compiler 19.0 tends to segfault sometimes with many jobs
-make --jobs=2
+make --jobs=$(nproc)
 make install
 rm -rf /build/*
 
