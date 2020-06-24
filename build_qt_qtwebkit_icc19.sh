@@ -122,7 +122,7 @@ echo \" done\"
 echo -n \"Patching qt5 for compilation with Intel Compiler 19.0..\"
   cd ${qt_string}-${qt_version}
   patch -p1 -i ../intel19.patch
-  patch -p1 -i ../versiontag.patch
+  patch -p1 -i ../versiontag599.patch
   cd /build/
 echo \" done\"
 
