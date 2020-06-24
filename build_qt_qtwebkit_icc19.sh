@@ -199,8 +199,7 @@ make install
 
 rm -rf /build/*
 
-# Don't carry those over, only Qt5
-rm -rf $prefix/cmake*
+# Don't carry gcc over, only Qt5
 rm -rf $prefix/gcc*
 "
 
