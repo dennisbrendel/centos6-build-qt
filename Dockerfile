@@ -36,6 +36,7 @@ RUN yum -y install centos-release-scl && \
                 -shared                      \
                 -c++std c++11                \
                 -platform linux-g++-64       \
+                -no-pch                      \
                 -ssl                         \
                 -fontconfig                  \
                 -system-freetype             \
