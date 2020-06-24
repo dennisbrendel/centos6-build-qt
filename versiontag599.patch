@@ -88,3 +88,20 @@ diff -ur a/qtbase/src/corelib/global/qversiontagging.h b/qtbase/src/corelib/glob
  
  QT_END_NAMESPACE
  
+diff -ur a/qtwebengine/src/core/api/core_api.pro b/qtwebengine/src/core/api/core_api.pro
+--- a/qtwebengine/src/core/api/core_api.pro	2019-12-08 09:18:34.000000000 +0100
++++ b/qtwebengine/src/core/api/core_api.pro	2020-06-24 15:41:40.812338125 +0200
+@@ -52,12 +52,6 @@
+     qwebengineurlrequestjob.cpp \
+     qwebengineurlschemehandler.cpp
+
+-### Qt6 Remove this workaround
+-unix:!isEmpty(QMAKE_LFLAGS_VERSION_SCRIPT):!static {
+-    SOURCES += qtbug-60565.cpp \
+-               qtbug-61521.cpp
+-}
+-
+ msvc {
+     # Create a list of object files that can be used as response file for the linker.
+     # This is done to simulate -whole-archive on MSVC.
+
