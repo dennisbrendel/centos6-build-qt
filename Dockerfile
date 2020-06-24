@@ -26,6 +26,9 @@ RUN yum -y install centos-release-scl && \
     sed --in-place '/.*\.zip/d' md5sums.txt && \
     echo -n "Verifying file.." && md5sum --quiet --check md5sums.txt && echo " done" && \
     echo -n "Extracting qt5.. " && tar xf ${qt_string}-${qt_major}${qt_minor}.tar.xz && echo " done" && \
+    cd ${qt_string}-${qt_major}${qt_minor} && \
+    patch -p1 -i ../versiontag599.patch && \
+    cd /build/ && \
     mkdir build && cd build && \
     ../${qt_string}-${qt_major}${qt_minor}/configure --prefix=${prefix}/qt-${qt_major}${qt_minor}-gcc485 \
                 -opensource -confirm-license \
