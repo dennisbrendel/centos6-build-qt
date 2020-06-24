@@ -132,6 +132,7 @@ mkdir build && cd build
                 -shared                      \
                 -c++std c++11                \
                 -platform linux-icc-64       \
+                -no-pch                      \
                 -ssl                         \
                 -fontconfig                  \
                 -system-freetype             \
