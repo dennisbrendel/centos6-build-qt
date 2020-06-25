@@ -119,12 +119,11 @@ echo -n \"Extracting qt5.. \"
   tar xf ${qt_string}-${qt_version}.tar.xz
 echo \" done\"
 
-echo -n \"Patching qt5 for compilation with Intel Compiler 19.0..\"
-  cd ${qt_string}-${qt_version}
-  patch -p1 -i ../intel19.patch
-  patch -p1 -i ../versiontag599.patch
-  cd /build/
-echo \" done\"
+# Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
+cd ${qt_string}-${qt_version}
+patch -p1 -i ../intel19.patch
+patch -p1 -i ../versiontag599.patch
+cd /build/
 
 mkdir build && cd build 
 ../${qt_string}-${qt_version}/configure --prefix=${prefix}/qt-${qt_version}-icc19 \
