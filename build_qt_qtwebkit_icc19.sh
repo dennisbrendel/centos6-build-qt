@@ -198,6 +198,7 @@ mkdir build && cd build
 make --jobs=$(nproc)
 make install
 
+yum -y history undo last
 rm -rf /build/*
 
 # Don't carry gcc over, only Qt5
