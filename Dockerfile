@@ -103,3 +103,6 @@ RUN yum -y install centos-release-scl && \
     rm -rf /build/* && \
     rm -rf $prefix/$gcc
 
+RUN sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}" "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}/QtGui"):' $prefix/qt-${qt_major}${qt_minor}-gcc485/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake && \
+    sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}" "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}/QtCore"):' $prefix/qt-${qt_major}${qt_minor}-gcc485/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
+
