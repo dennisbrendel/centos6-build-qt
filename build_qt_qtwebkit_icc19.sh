@@ -101,7 +101,7 @@ set -e
 yum -y install centos-release-scl
 yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel \
                fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel \
-               libXtst-devel gperf expat-devel
+               libXtst-devel gperf expat-devel xkeyboard-config
 
 source /opt/rh/python27/enable
 
@@ -139,6 +139,7 @@ mkdir build && cd build
                 -qt-zlib                     \
                 -qt-libjpeg                  \
                 -qt-libpng                   \
+                -qt-xcb                      \
                 -nomake examples             \
                 -nomake tests                \
                 -no-sse4.1 -no-sse4.2        \
@@ -146,7 +147,6 @@ mkdir build && cd build
                 -no-rpath                    \
                 -no-cups                     \
                 -no-iconv                    \
-                -no-dbus                     \
                 -no-gtk                      \
                 -no-glib                     \
                 -no-icu                      \
