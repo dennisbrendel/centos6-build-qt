@@ -205,7 +205,7 @@ rm -rf $prefix/gcc*
 
 # Fix private include dir bug
 sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) \"\"):\1 \"\$\{_qt5Gui_install_prefix\}/include/QtGui/\$\{Qt5Gui_VERSION_STRING\}\" \"\$\{_qt5Gui_install_prefix\}/include/QtGui/\$\{Qt5Gui_VERSION_STRING\}/QtGui\"):' $prefix/qt-${qt_version}-icc19/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
-￼sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) \"\"):\1 \"\$\{_qt5Core_install_prefix\}/include/QtCore/\$\{Qt5Core_VERSION_STRING\}\" \"\$\{_qt5Core_install_prefix\}/include/QtCore/\$\{Qt5Core_VERSION_STRING\}/QtCore\"):' $prefix/qt-${qt_version}-icc19/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
+sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) \"\"):\1 \"\$\{_qt5Core_install_prefix\}/include/QtCore/\$\{Qt5Core_VERSION_STRING\}\" \"\$\{_qt5Core_install_prefix\}/include/QtCore/\$\{Qt5Core_VERSION_STRING\}/QtCore\"):' $prefix/qt-${qt_version}-icc19/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
 "
 
 $runtime commit centos6-build-qt-icc19 sharpreflections/centos6-build-qt:qt-5.9.9_icc-19.0
