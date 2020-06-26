@@ -1,12 +1,17 @@
 diff -ur a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
---- a/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-25 07:56:19.756109524 +0000
-+++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-25 07:55:17.947223450 +0000
-@@ -85,7 +85,7 @@
+--- a/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-26 08:50:41.976585025 +0200
++++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-26 08:52:55.844459421 +0200
+@@ -81,11 +81,11 @@
+
+ QMAKE_LINK              = icpc
+ QMAKE_LINK_SHLIB        = icpc
+-QMAKE_LFLAGS            =
++QMAKE_LFLAGS            = -static-intel -Wl,--disable-new-dtags
  QMAKE_LFLAGS_RELEASE    =
  QMAKE_LFLAGS_APP        = -pie
  QMAKE_LFLAGS_DEBUG      =
 -QMAKE_LFLAGS_SHLIB      = -shared -shared-intel
-+QMAKE_LFLAGS_SHLIB      = -shared -static-intel
++QMAKE_LFLAGS_SHLIB      = -shared -Wl,-rpath,\'\$$ORIGIN\'
  QMAKE_LFLAGS_PLUGIN     = $$QMAKE_LFLAGS_SHLIB
  QMAKE_LFLAGS_SONAME     = -Wl,-soname,
  QMAKE_LFLAGS_THREAD     =
