@@ -46,7 +46,7 @@ RUN yum -y install centos-release-scl && \
   cd /build/ && \
 
   mkdir build && cd build && \
-  ../${qt_string}-${qt_version}/configure --prefix=$prefix/${qt_version}-gcc-$suffix \
+  ../${qt_string}-${qt_version}/configure --prefix=$prefix/qt-${qt_version}-$suffix \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
