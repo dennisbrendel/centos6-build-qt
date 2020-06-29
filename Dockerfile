@@ -19,10 +19,6 @@ ENV LD_LIBRARY_PATH=$prefix/$icc/compilers_and_libraries/linux/lib/intel64_lin/:
 ENV CC=icc
 ENV CXX=icpc
 
-#mounts="$INTEL_DIR:/opt/icc-19.0
-#        $LIC_DIR:/root/Licenses"
-
-
 RUN yum -y install centos-release-scl && \
     yum -y install python27 xz glibc-headers glibc-devel mesa-libGL-devel mesa-libEGL-devel openssl-devel \
                fontconfig-devel dbus-devel libXcomposite-devel libXcursor-devel libXi-devel libXrandr-devel \
