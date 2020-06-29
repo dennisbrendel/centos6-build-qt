@@ -9,6 +9,7 @@ ARG qt_version=${qt_major}${qt_minor}
 ARG qt_string=qt-everywhere-opensource-src
 
 ARG prefix=/opt
+ARG suffix=icc19
 
 WORKDIR /build/
 COPY versiontag599.patch /build/
@@ -45,7 +46,7 @@ RUN yum -y install centos-release-scl && \
   cd /build/ && \
 
   mkdir build && cd build && \
-  ../${qt_string}-${qt_version}/configure --prefix=$prefix/${qt_version}-icc19 \
+  ../${qt_string}-${qt_version}/configure --prefix=$prefix/${qt_version}-gcc-$suffix \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
@@ -120,6 +121,6 @@ rm -rf /build/* && \
 rm -rf $prefix/gcc*
 
 # Fix private include dir bug
- RUN sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}" "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}/QtGui"):' $prefix/qt-${qt_major}${qt_minor}-icc19/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake && \
-     sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}" "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}/QtCore"):' $prefix/qt-${qt_major}${qt_minor}-icc19/lib/cmake/Qt5Core/Qt5CoreConfig.cmak
+RUN sed --in-place 's:\(set(Qt5Gui_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}" "${_qt5Gui_install_prefix}/include/QtGui/${Qt5Gui_VERSION_STRING}/QtGui"):' $prefix/qt-${qt_major}${qt_minor}-$suffix/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake && \
+    sed --in-place 's:\(set(Qt5Core_PRIVATE_INCLUDE_DIRS\) ""):\1 "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}" "${_qt5Core_install_prefix}/include/QtCore/${Qt5Core_VERSION_STRING}/QtCore"):' $prefix/qt-${qt_major}${qt_minor}-$suffix/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
 
