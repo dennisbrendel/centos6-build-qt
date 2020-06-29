@@ -13,7 +13,7 @@ ARG suffix=gcc485
 WORKDIR /build/
 COPY versiontag599.patch /build/
 
-ENV PATH=$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
+ENV PATH=$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
 ENV LD_LIBRARY_PATH=$prefix/$gcc/lib64
 ENV CC=/opt/$gcc/bin/gcc
 ENV CXX=/opt/$gcc/bin/g++
