@@ -54,6 +54,7 @@ RUN yum -y install centos-release-scl && \
                 -qt-zlib                     \
                 -qt-libjpeg                  \
                 -qt-libpng                   \
+                -qt-xcb                      \
                 -nomake examples             \
                 -nomake tests                \
                 -no-sse4.1 -no-sse4.2        \
@@ -61,7 +62,6 @@ RUN yum -y install centos-release-scl && \
                 -no-rpath                    \
                 -no-cups                     \
                 -no-iconv                    \
-                -no-dbus                     \
                 -no-gtk                      \
                 -no-glib                     \
                 -no-icu                      \
