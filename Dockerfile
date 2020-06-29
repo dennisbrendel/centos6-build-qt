@@ -15,7 +15,7 @@ WORKDIR /build/
 COPY versiontag599.patch /build/
 COPY intel19.patch /build/
 
-ENV PATH=$prefix/qt-${qt_version}-icc19/bin:$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
+ENV PATH=$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
 ENV LD_LIBRARY_PATH=$prefix/$icc/compilers_and_libraries/linux/lib/intel64_lin/:$prefix/$gcc/lib64
 ENV CC=icc
 ENV CXX=icpc
