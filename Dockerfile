@@ -35,19 +35,19 @@ RUN yum -y install centos-release-scl && \
     echo "Downloading Qt5 ${qt_version}:" && \
       curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_major}/${qt_version}/single/${qt_string}-${qt_version}.tar.xz && \
       curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_major}/${qt_version}/single/md5sums.txt && \
-  sed --in-place '/.*\.zip/d' md5sums.txt && \
 
-  echo -n "Verifying file.." && \
-    md5sum --quiet --check md5sums.txt && \
-  echo " done" && \
+    echo -n "Verifying file.." && \
+      sed --in-place '/.*\.zip/d' md5sums.txt && \
+      md5sum --quiet --check md5sums.txt && \
+    echo " done" && \
 
     rm md5sums.txt && \
     echo "Downloading Qt5 ${qt_donor}:" && \
       curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/single/qt-everywhere-opensource-src-${qt_donor}.tar.xz && \
       curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/single/md5sums.txt && \
-      sed --in-place '/.*\.zip/d' md5sums.txt && \
 
     echo -n "Verifying file.." && \
+      sed --in-place '/.*\.zip/d' md5sums.txt && \
       md5sum --quiet --check md5sums.txt && \
     echo " done" && \
 
@@ -63,15 +63,15 @@ RUN yum -y install centos-release-scl && \
       mv ${qt_donor_string}-${qt_donor}/qtwebengine ${qt_string}-${qt_version}/ && \
     echo " done" && \
 
-  # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
-  cd ${qt_string}-${qt_version} && \
-  patch -p1 -i ../versiontag5120.patch && \
-  patch -p1 -i ../intel19.patch && \
-  patch -p1 -i ../intel19_qtwebengine599.patch && \
-  cd /build/ && \
+    # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
+    cd ${qt_string}-${qt_version} && \
+    patch -p1 -i ../versiontag5120.patch && \
+    patch -p1 -i ../intel19.patch && \
+    patch -p1 -i ../intel19_qtwebengine599.patch && \
+    cd /build/ && \
 
-  mkdir build && cd build && \
-  ../${qt_string}-${qt_version}/configure --prefix=$prefix/qt-${qt_version}-$suffix \
+    mkdir build && cd build && \
+    ../${qt_string}-${qt_version}/configure --prefix=$prefix/qt-${qt_version}-$suffix \
                 -opensource -confirm-license \
                 -shared                      \
                 -c++std c++11                \
@@ -140,12 +140,12 @@ RUN yum -y install centos-release-scl && \
 #               qtx11extras
 #               qtxmlpatterns
 
-make --jobs=$(nproc) && make install && \
-yum -y history undo last && \
-rm -rf /build/* && \
+    make --jobs=$(nproc) && make install && \
+    yum -y history undo last && \
+    rm -rf /build/* && \
 
-# Don't carry gcc over, only Qt5
-rm -rf $prefix/gcc*
+    # Don't carry gcc over, only Qt5
+    rm -rf $prefix/gcc*
 
 # We apparently lost those on the way
 RUN echo "#include \"qwebenginesettings.h\" > $prefix/${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineSettings" && \
