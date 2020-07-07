@@ -1,127 +1,47 @@
-diff -ur a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
---- a/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-26 08:50:41.976585025 +0200
-+++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-06-26 08:52:55.844459421 +0200
-@@ -81,11 +81,11 @@
-
+diff -ru a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-base-unix.conf
+--- a/qtbase/mkspecs/common/icc-base-unix.conf	2018-12-03 11:15:26.000000000 +0000
++++ b/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-06 08:08:32.111968064 +0000
+@@ -34,6 +34,9 @@
+ QMAKE_CFLAGS_LTCG       = -ipo
+ QMAKE_CFLAGS_DISABLE_LTCG = -no-ipo
+ 
++QMAKE_CFLAGS_C99       = -std=c99
++QMAKE_CFLAGS_C11       = -std=c11
++
+ QMAKE_CFLAGS_SSE2      += -msse2
+ QMAKE_CFLAGS_SSE3      += -msse3
+ QMAKE_CFLAGS_SSSE3     += -mssse3
+@@ -86,7 +89,7 @@
+ 
  QMAKE_LINK              = icpc
  QMAKE_LINK_SHLIB        = icpc
 -QMAKE_LFLAGS            =
-+QMAKE_LFLAGS            = -static-intel -Wl,--disable-new-dtags
++QMAKE_LFLAGS            = -shared-intel -Wl,--disable-new-dtags
  QMAKE_LFLAGS_RELEASE    =
- QMAKE_LFLAGS_APP        = -pie
  QMAKE_LFLAGS_DEBUG      =
+ QMAKE_LFLAGS_THREAD     =
+diff -ru a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
+--- a/qtbase/mkspecs/linux-icc/qmake.conf	2018-12-03 11:15:26.000000000 +0000
++++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-06 08:08:32.114968041 +0000
+@@ -16,7 +16,7 @@
+ QMAKE_CXXFLAGS_THREAD   = $$QMAKE_CFLAGS_THREAD
+ 
+ QMAKE_LFLAGS_APP        = -pie
 -QMAKE_LFLAGS_SHLIB      = -shared -shared-intel
 +QMAKE_LFLAGS_SHLIB      = -shared -Wl,-rpath,\'\$$ORIGIN\'
  QMAKE_LFLAGS_PLUGIN     = $$QMAKE_LFLAGS_SHLIB
  QMAKE_LFLAGS_SONAME     = -Wl,-soname,
- QMAKE_LFLAGS_THREAD     =
-diff -ur a/qtwebengine/mkspecs/features/functions.prf b/qtwebengine/mkspecs/features/functions.prf
---- a/qtwebengine/mkspecs/features/functions.prf	2019-12-08 08:18:34.000000000 +0000
-+++ b/qtwebengine/mkspecs/features/functions.prf	2020-06-22 13:22:36.060362753 +0000
-@@ -17,8 +17,6 @@
-   QT_FOR_CONFIG += gui-private
-   linux {
-     if(!gcc:!clang)|intel_icc {
--      skipBuild("Qt WebEngine on Linux requires clang or GCC.")
--      return(false)
-     }
-     gcc:!clang:!isGCCVersionSupported(): return(false)
-   } else:win32 {
-diff -ur a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp
---- a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp	2019-12-05 18:23:22.000000000 +0000
-+++ b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.cpp	2020-06-23 15:05:02.558436210 +0000
-@@ -887,35 +887,6 @@
-   return result;
- }
+ QMAKE_LFLAGS_NOUNDEF    = -Wl,-z,defs
+diff -ru a/qtbase/src/corelib/global/qnumeric_p.h b/qtbase/src/corelib/global/qnumeric_p.h
+--- a/qtbase/src/corelib/global/qnumeric_p.h	2018-12-03 11:15:26.000000000 +0000
++++ b/qtbase/src/corelib/global/qnumeric_p.h	2020-07-06 08:08:32.118968009 +0000
+@@ -224,7 +224,7 @@
+ // size_t. Implementations for 8- and 16-bit types will work but may not be as
+ // efficient. Implementations for 64-bit may be missing on 32-bit platforms.
  
--template <CSSValueID cssValueFor0, CSSValueID cssValueFor100>
--Length StyleBuilderConverter::convertPositionLength(StyleResolverState& state,
--                                                    const CSSValue& value) {
--  if (value.isValuePair()) {
--    const CSSValuePair& pair = toCSSValuePair(value);
--    Length length = StyleBuilderConverter::convertLength(state, pair.second());
--    if (toCSSIdentifierValue(pair.first()).getValueID() == cssValueFor0)
--      return length;
--    DCHECK_EQ(toCSSIdentifierValue(pair.first()).getValueID(), cssValueFor100);
--    return length.subtractFromOneHundredPercent();
--  }
--
--  if (value.isIdentifierValue()) {
--    switch (toCSSIdentifierValue(value).getValueID()) {
--      case cssValueFor0:
--        return Length(0, Percent);
--      case cssValueFor100:
--        return Length(100, Percent);
--      case CSSValueCenter:
--        return Length(50, Percent);
--      default:
--        ASSERT_NOT_REACHED();
--    }
--  }
--
--  return StyleBuilderConverter::convertLength(state,
--                                              toCSSPrimitiveValue(value));
--}
--
- LengthPoint StyleBuilderConverter::convertPosition(StyleResolverState& state,
-                                                    const CSSValue& value) {
-   const CSSValuePair& pair = toCSSValuePair(value);
-diff -ur a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h
---- a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h	2019-12-05 18:23:22.000000000 +0000
-+++ b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/core/css/resolver/StyleBuilderConverter.h	2020-06-23 15:07:40.605237230 +0000
-@@ -31,6 +31,7 @@
- #include "core/css/CSSStringValue.h"
- #include "core/css/CSSValue.h"
- #include "core/css/CSSValueList.h"
-+#include "core/css/CSSValuePair.h"
- #include "core/css/resolver/StyleResolverState.h"
- #include "core/style/QuotesData.h"
- #include "core/style/ShadowList.h"
-@@ -191,6 +192,36 @@
-       const CSSValue&);
- };
+-#if (defined(Q_CC_GNU) && (Q_CC_GNU >= 500) || (defined(Q_CC_INTEL) && !defined(Q_OS_WIN))) || QT_HAS_BUILTIN(__builtin_add_overflowx)
++#if (defined(Q_CC_GNU) && (Q_CC_GNU >= 500) || (defined(Q_CC_INTEL) && (Q_CC_GNU >= 500) && !defined(Q_OS_WIN))) || QT_HAS_BUILTIN(__builtin_add_overflowx)
+ // GCC 5, ICC 18, and Clang 3.8 have builtins to detect overflows
  
-+template <CSSValueID cssValueFor0, CSSValueID cssValueFor100>
-+Length StyleBuilderConverter::convertPositionLength(StyleResolverState& state,
-+                                                    const CSSValue& value) {
-+  if (value.isValuePair()) {
-+    const CSSValuePair& pair = toCSSValuePair(value);
-+    Length length = StyleBuilderConverter::convertLength(state, pair.second());
-+    if (toCSSIdentifierValue(pair.first()).getValueID() == cssValueFor0)
-+      return length;
-+    DCHECK_EQ(toCSSIdentifierValue(pair.first()).getValueID(), cssValueFor100);
-+    return length.subtractFromOneHundredPercent();
-+  }
-+
-+  if (value.isIdentifierValue()) {
-+    switch (toCSSIdentifierValue(value).getValueID()) {
-+      case cssValueFor0:
-+        return Length(0, Percent);
-+      case cssValueFor100:
-+        return Length(100, Percent);
-+      case CSSValueCenter:
-+        return Length(50, Percent);
-+      default:
-+        ASSERT_NOT_REACHED();
-+    }
-+  }
-+
-+  return StyleBuilderConverter::convertLength(state,
-+                                              toCSSPrimitiveValue(value));
-+}
-+
-+
- template <typename T>
- T StyleBuilderConverter::convertComputedLength(StyleResolverState& state,
-                                                const CSSValue& value) {
-diff -ur a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h
---- a/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h	2019-12-05 18:23:22.000000000 +0000
-+++ b/qtwebengine/src/3rdparty/chromium/third_party/WebKit/Source/platform/heap/HeapAllocator.h	2020-06-23 14:07:12.001188888 +0000
-@@ -50,6 +50,7 @@
-  public:
-   using Visitor = blink::Visitor;
-   static const bool isGarbageCollected = true;
-+  static void free(void*) {}
+ template <typename T> inline
  
-   template <typename T>
-   static size_t quantizedSize(size_t count) {
