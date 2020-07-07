@@ -5,7 +5,7 @@ ARG gcc=gcc-4.8.5
 ARG qt_major=5.12
 ARG qt_minor=.0
 ARG qt_version=${qt_major}${qt_minor}
-ARG qt_string=qt-everywhere-opensource-src
+ARG qt_string=qt-everywhere-src
 
 ARG qt_donor_major=5.9
 ARG qt_donor_minor=.9
