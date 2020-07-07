@@ -143,6 +143,6 @@ RUN yum -y install centos-release-scl && \
     rm -rf $prefix/gcc*
 
 # We apparently lost those on the way
-RUN echo "#include \"qwebenginesettings.h\" > $prefix/${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineSettings" && \
-    echo "#include \"qwebengineview.h\" > $prefix/${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineView"
+RUN echo "#include \"qwebenginesettings.h\"" > $prefix/${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineSettings && \
+    echo "#include \"qwebengineview.h\"" > $prefix/${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineView
 
