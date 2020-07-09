@@ -1,4 +1,4 @@
-FROM sharpreflections/centos6-build-gcc:gcc-4.8.5
+FROM sharpreflections/centos6-build-gcc
 LABEL maintainer="dennis.brendel@sharpreflections.com"
 
 ARG gcc=gcc-4.8.5
