@@ -60,7 +60,7 @@ RUN yum -y install centos-release-scl && \
       mv ${qt_donor_string}-${qt_donor}/qtwebengine ${qt_string}-${qt_version}/ && \
     echo " done" && \
 
-    # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
+    # Remove the symbol versions for upward compatibility
     cd ${qt_string}-${qt_version} && \
       patch -p1 -i ../versiontag5120.patch && \
       patch -p1 -i ../qtwebengine599.patch && \
