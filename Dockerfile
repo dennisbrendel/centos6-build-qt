@@ -98,6 +98,7 @@ RUN yum -y install centos-release-scl && \
                 -no-webrtc                   \
                 -no-pepper-plugins           \
                 -no-spellchecker             \
+                -no-printing-and-pdf         \
                 -skip qt3d                   \
                 -skip qtactiveqt             \
                 -skip qtandroidextras        \
