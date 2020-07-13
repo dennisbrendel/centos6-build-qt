@@ -18,6 +18,7 @@ ARG suffix=gcc831
 WORKDIR /build/
 COPY versiontag5120.patch /build/
 COPY qtwebengine599.patch /build/
+COPY qt_no_append_rpath.path /build/
 
 ENV CC=gcc
 ENV CXX=g++
@@ -64,6 +65,7 @@ RUN yum -y install centos-release-scl && \
     cd ${qt_string}-${qt_version} && \
       patch -p1 -i ../versiontag5120.patch && \
       patch -p1 -i ../qtwebengine599.patch && \
+      patch -p1 -i ../qt_no_append_rpath.path && \
     cd /build/ && \
 
     mkdir build && cd build && \
