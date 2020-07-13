@@ -90,6 +90,7 @@ RUN yum -y install centos-release-scl && \
                 -no-sse4.1 -no-sse4.2        \
                 -no-avx -no-avx2 -no-avx512  \
                 -no-rpath                    \
+                -no-dbus                     \
                 -no-cups                     \
                 -no-iconv                    \
                 -no-gtk                      \
