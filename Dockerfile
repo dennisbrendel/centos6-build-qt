@@ -20,6 +20,7 @@ WORKDIR /build/
 COPY versiontag5120.patch /build/
 COPY intel19.patch /build/
 COPY intel19_qtwebengine599.patch /build/
+COPY qt_no_append_rpath.path /build/
 
 ENV PATH=$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
 ENV LD_LIBRARY_PATH=$prefix/$icc/compilers_and_libraries/linux/lib/intel64_lin/:$prefix/$gcc/lib64
@@ -68,6 +69,7 @@ RUN yum -y install centos-release-scl && \
     patch -p1 -i ../versiontag5120.patch && \
     patch -p1 -i ../intel19.patch && \
     patch -p1 -i ../intel19_qtwebengine599.patch && \
+    patch -p1 -i ../qt_no_append_rpath.path && \
     cd /build/ && \
 
     mkdir build && cd build && \

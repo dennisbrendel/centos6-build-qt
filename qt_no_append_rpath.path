@@ -1,0 +1,22 @@
+diff -ur a/qtbase/mkspecs/features/qt.prf b/qtbase/mkspecs/features/qt.prf
+--- a/qtbase/mkspecs/features/qt.prf 2020-06-26 08:50:41.972584999 +0200
++++ b/qtbase/mkspecs/features/qt.prf 2020-07-13 15:39:36.193883425 +0200
+@@ -271,17 +271,6 @@
+     message("This is not a bug, but a result of using Qt internals. You have been warned!")
+ }
+ 
+-!no_qt_rpath:!static:qtConfig(rpath):!qtConfig(static):\
+-        contains(all_qt_module_deps, core) {
+-    relative_qt_rpath:!isEmpty(QMAKE_REL_RPATH_BASE):contains(INSTALLS, target):\
+-            isEmpty(target.files):isEmpty(target.commands):isEmpty(target.extra) {
+-        # NOT the /dev property, as INSTALLS use host paths
+-        QMAKE_RPATHDIR += $$relative_path($$[QT_INSTALL_LIBS], $$qtRelativeRPathBase())
+-    } else {
+-        QMAKE_RPATHDIR += $$[QT_INSTALL_LIBS/dev]
+-    }
+-}
+-
+ !isEmpty(QMAKE_LFLAGS_RPATHLINK):!qtConfig(static) {
+     # -rpath-link is used by the linker to find dependencies of dynamic
+     # libraries which were NOT specified on the command line.
+
