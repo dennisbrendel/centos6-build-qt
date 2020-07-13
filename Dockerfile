@@ -63,9 +63,9 @@ RUN yum -y install centos-release-scl && \
 
     # Remove the symbol versions for upward compatibility
     cd ${qt_string}-${qt_version} && \
-      patch -p1 -i ../versiontag5120.patch && \
-      patch -p1 -i ../qtwebengine599.patch && \
-      patch -p1 -i ../qt_no_append_rpath.path && \
+      patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
+      patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine599.patch && \
+      patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
     cd /build/ && \
 
     mkdir build && cd build && \
