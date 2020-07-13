@@ -65,12 +65,10 @@ RUN yum -y install centos-release-scl && \
     echo " done" && \
 
     # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
-    cd ${qt_string}-${qt_version} && \
-    patch -p1 -i ../versiontag5120.patch && \
-    patch -p1 -i ../intel19.patch && \
-    patch -p1 -i ../intel19_qtwebengine599.patch && \
-    patch -p1 -i ../qt_no_append_rpath.path && \
-    cd /build/ && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../intel19.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../intel19_qtwebengine599.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
 
     mkdir build && cd build && \
     ../${qt_string}-${qt_version}/configure --prefix=$prefix/qt-${qt_version}-$suffix \
