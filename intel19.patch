@@ -16,7 +16,7 @@ diff -ru a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-
  QMAKE_LINK              = icpc
  QMAKE_LINK_SHLIB        = icpc
 -QMAKE_LFLAGS            =
-+QMAKE_LFLAGS            = -shared-intel -Wl,--disable-new-dtags
++QMAKE_LFLAGS            = -shared-intel -Wl,--disable-new-dtags -Wl,-rpath,\'\$$ORIGIN/../lib\'
  QMAKE_LFLAGS_RELEASE    =
  QMAKE_LFLAGS_DEBUG      =
  QMAKE_LFLAGS_THREAD     =
