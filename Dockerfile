@@ -69,8 +69,12 @@ RUN yum -y install centos-release-scl && \
     cd /build/ && \
 
     mkdir build && cd build && \
-    ../${qt_string}-${qt_version}/configure --prefix=$prefix/qt-${qt_version}-$suffix \
-                -opensource -confirm-license \
+    ../${qt_string}-${qt_version}/configure -opensource -confirm-license \
+                --prefix=$prefix/qt-${qt_version}-$suffix \
+                --libdir=$prefix/qt-${qt_version}-$suffix \
+                --bindir=$prefix/qt-${qt_version}-$suffix/bin \
+                --libexecdir=$prefix/qt-${qt_version}-$suffix/libexec \
+                --plugindir=$prefix/qt-${qt_version}-$suffix/plugins \
                 -shared                      \
                 -c++std c++14                \
                 -platform linux-g++-64       \
