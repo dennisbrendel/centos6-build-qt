@@ -1,6 +1,6 @@
-diff -ru a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-base-unix.conf
---- a/qtbase/mkspecs/common/icc-base-unix.conf	2018-12-03 11:15:26.000000000 +0000
-+++ b/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-06 08:08:32.111968064 +0000
+diff -ur a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-base-unix.conf
+--- a/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-14 14:28:26.623839096 +0200
++++ b/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-15 09:15:43.706615894 +0200
 @@ -34,6 +34,9 @@
  QMAKE_CFLAGS_LTCG       = -ipo
  QMAKE_CFLAGS_DISABLE_LTCG = -no-ipo
@@ -20,21 +20,24 @@ diff -ru a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-
  QMAKE_LFLAGS_RELEASE    =
  QMAKE_LFLAGS_DEBUG      =
  QMAKE_LFLAGS_THREAD     =
-diff -ru a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
---- a/qtbase/mkspecs/linux-icc/qmake.conf	2018-12-03 11:15:26.000000000 +0000
-+++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-06 08:08:32.114968041 +0000
-@@ -16,7 +16,7 @@
+diff -ur a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
+--- a/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-14 14:28:26.633839019 +0200
++++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-15 09:17:14.889863453 +0200
+@@ -16,8 +16,8 @@
  QMAKE_CXXFLAGS_THREAD   = $$QMAKE_CFLAGS_THREAD
  
  QMAKE_LFLAGS_APP        = -pie
 -QMAKE_LFLAGS_SHLIB      = -shared -shared-intel
+-QMAKE_LFLAGS_PLUGIN     = $$QMAKE_LFLAGS_SHLIB
 +QMAKE_LFLAGS_SHLIB      = -shared -Wl,-rpath,\'\$$ORIGIN\'
- QMAKE_LFLAGS_PLUGIN     = $$QMAKE_LFLAGS_SHLIB
++QMAKE_LFLAGS_PLUGIN     = -shared -Wl,-rpath,\'\$$ORIGIN/../../\'
  QMAKE_LFLAGS_SONAME     = -Wl,-soname,
  QMAKE_LFLAGS_NOUNDEF    = -Wl,-z,defs
-diff -ru a/qtbase/src/corelib/global/qnumeric_p.h b/qtbase/src/corelib/global/qnumeric_p.h
---- a/qtbase/src/corelib/global/qnumeric_p.h	2018-12-03 11:15:26.000000000 +0000
-+++ b/qtbase/src/corelib/global/qnumeric_p.h	2020-07-06 08:08:32.118968009 +0000
+ QMAKE_LFLAGS_RPATHLINK  = -Wl,-rpath-link,
+Only in qt-everywhere-src-5.12.0.patched/qtbase/mkspecs/linux-icc: qmake.conf.rej
+diff -ur a/qtbase/src/corelib/global/qnumeric_p.h b/qtbase/src/corelib/global/qnumeric_p.h
+--- a/qtbase/src/corelib/global/qnumeric_p.h	2020-07-14 14:28:27.654831124 +0200
++++ b/qtbase/src/corelib/global/qnumeric_p.h	2020-07-15 09:15:48.222578594 +0200
 @@ -224,7 +224,7 @@
  // size_t. Implementations for 8- and 16-bit types will work but may not be as
  // efficient. Implementations for 64-bit may be missing on 32-bit platforms.
@@ -44,4 +47,23 @@ diff -ru a/qtbase/src/corelib/global/qnumeric_p.h b/qtbase/src/corelib/global/qn
  // GCC 5, ICC 18, and Clang 3.8 have builtins to detect overflows
  
  template <typename T> inline
+diff -ur a/qtwebengine/mkspecs/features/gn_generator.prf b/qtwebengine/mkspecs/features/gn_generator.prf
+--- a/qtwebengine/mkspecs/features/gn_generator.prf	2020-07-15 09:22:47.386096935 +0200
++++ b/qtwebengine/mkspecs/features/gn_generator.prf	2020-07-15 15:44:35.907119762 +0200
+@@ -172,13 +172,9 @@
+                "    ldflags = []"\
+                "  }"
+ GN_CONTENTS += "  ldflags += ["
+-for (flag, QMAKE_LFLAGS): GN_CONTENTS += "    \"$$filter_flag_values($$flag)\","
+-for (flag, GN_FLAGS): GN_CONTENTS += "    \"$$flag\","
+-!isEmpty(QMAKE_RPATHDIR) {
+-    for (rpath, QMAKE_RPATHDIR) {
+-        unix:!macos: GN_CONTENTS += "    \"-Wl,-rpath=$${rpath}\","
+-    }
+-}
++GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN\","
++GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN/../\","
++
+ !isEmpty(QMAKE_RPATHLINKDIR): GN_CONTENTS += "    \"-Wl,-rpath-link=$${QMAKE_RPATHLINKDIR}\","
+ GN_CONTENTS += "  ]"
  
