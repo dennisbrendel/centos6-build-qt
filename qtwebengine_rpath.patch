@@ -1,0 +1,20 @@
+diff -ur a/qtwebengine/mkspecs/features/gn_generator.prf b/qtwebengine/mkspecs/features/gn_generator.prf
+--- a/qtwebengine/mkspecs/features/gn_generator.prf	2020-07-15 09:22:47.386096935 +0200
++++ b/qtwebengine/mkspecs/features/gn_generator.prf	2020-07-16 08:44:36.841505224 +0200
+@@ -172,13 +172,9 @@
+                "    ldflags = []"\
+                "  }"
+ GN_CONTENTS += "  ldflags += ["
+-for (flag, QMAKE_LFLAGS): GN_CONTENTS += "    \"$$filter_flag_values($$flag)\","
+-for (flag, GN_FLAGS): GN_CONTENTS += "    \"$$flag\","
+-!isEmpty(QMAKE_RPATHDIR) {
+-    for (rpath, QMAKE_RPATHDIR) {
+-        unix:!macos: GN_CONTENTS += "    \"-Wl,-rpath=$${rpath}\","
+-    }
+-}
++GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN\","
++GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN/../\",
++
+ !isEmpty(QMAKE_RPATHLINKDIR): GN_CONTENTS += "    \"-Wl,-rpath-link=$${QMAKE_RPATHLINKDIR}\","
+ GN_CONTENTS += "  ]"
+ 

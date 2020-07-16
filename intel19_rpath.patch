@@ -1,0 +1,26 @@
+diff -ur a/qtbase/mkspecs/common/icc-base-unix.conf b/qtbase/mkspecs/common/icc-base-unix.conf
+--- a/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-14 14:28:26.623839096 +0200
++++ b/qtbase/mkspecs/common/icc-base-unix.conf	2020-07-16 08:40:57.070258103 +0200
+@@ -86,7 +86,7 @@
+ 
+ QMAKE_LINK              = icpc
+ QMAKE_LINK_SHLIB        = icpc
+-QMAKE_LFLAGS            =
++QMAKE_LFLAGS            = -shared-intel -Wl,--disable-new-dtags -Wl,-rpath,\'\$$ORIGIN/../lib\'
+ QMAKE_LFLAGS_RELEASE    =
+ QMAKE_LFLAGS_DEBUG      =
+ QMAKE_LFLAGS_THREAD     =
+diff -ur a/qtbase/mkspecs/linux-icc/qmake.conf b/qtbase/mkspecs/linux-icc/qmake.conf
+--- a/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-14 14:28:26.633839019 +0200
++++ b/qtbase/mkspecs/linux-icc/qmake.conf	2020-07-16 08:41:32.270976747 +0200
+@@ -16,8 +16,8 @@
+ QMAKE_CXXFLAGS_THREAD   = $$QMAKE_CFLAGS_THREAD
+ 
+ QMAKE_LFLAGS_APP        = -pie
+-QMAKE_LFLAGS_SHLIB      = -shared -shared-intel
+-QMAKE_LFLAGS_PLUGIN     = $$QMAKE_LFLAGS_SHLIB
++QMAKE_LFLAGS_SHLIB      = -shared -Wl,-rpath,\'\$$ORIGIN\'
++QMAKE_LFLAGS_PLUGIN     = -shared -Wl,-rpath,\'\$$ORIGIN/../../\'
+ QMAKE_LFLAGS_SONAME     = -Wl,-soname,
+ QMAKE_LFLAGS_NOUNDEF    = -Wl,-z,defs
+ QMAKE_LFLAGS_RPATHLINK  = -Wl,-rpath-link,

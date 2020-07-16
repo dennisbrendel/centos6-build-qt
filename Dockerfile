@@ -19,7 +19,9 @@ ARG suffix=icc19
 WORKDIR /build/
 COPY versiontag5120.patch /build/
 COPY intel19.patch /build/
+COPY intel19_rpath.patch /build/
 COPY intel19_qtwebengine599.patch /build/
+COPY qtwebengine_rpath.patch /build/
 COPY qt_no_append_rpath.path /build/
 
 ENV PATH=$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
@@ -67,7 +69,9 @@ RUN yum -y install centos-release-scl && \
     # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
     patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../intel19.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../intel19_rpath.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../intel19_qtwebengine599.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine_rpath.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
 
     mkdir build && cd build && \
