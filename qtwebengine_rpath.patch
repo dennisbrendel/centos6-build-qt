@@ -13,7 +13,7 @@ diff -ur a/qtwebengine/mkspecs/features/gn_generator.prf b/qtwebengine/mkspecs/f
 -    }
 -}
 +GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN\","
-+GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN/../\",
++GN_CONTENTS += "    \"-Wl,-rpath=$$ORIGIN/../\","
 +
  !isEmpty(QMAKE_RPATHLINKDIR): GN_CONTENTS += "    \"-Wl,-rpath-link=$${QMAKE_RPATHLINKDIR}\","
  GN_CONTENTS += "  ]"
