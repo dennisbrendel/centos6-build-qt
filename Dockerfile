@@ -67,14 +67,12 @@ RUN yum -y install centos-release-scl && \
     echo " done" && \
 
     # Remove the symbol versions for upward compatibility
-    cd ${qt_string}-${qt_version} && \
-      patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
-      patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine599.patch && \
-      patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine_rpath.patch && \
-      patch -d ${qt_string}-${qt_version} -p1 -i ../gcc_rpath.patch && \
-      patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
-      patch -d ${qt_string}-${qt_version}/qtbase/ -p1 -i ../../DND_QTBUG-72844_52e0d9e.patch && \
-    cd /build/ && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine599.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine_rpath.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../gcc_rpath.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
+    patch -d ${qt_string}-${qt_version}/qtbase/ -p1 -i ../../DND_QTBUG-72844_52e0d9e.patch && \
 
     mkdir build && cd build && \
     ../${qt_string}-${qt_version}/configure -opensource -confirm-license \
