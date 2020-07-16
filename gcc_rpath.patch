@@ -1,0 +1,26 @@
+diff -ur qt-everywhere-src-5.12.0.orig/qtbase/mkspecs/common/gcc-base.conf qt-everywhere-src-5.12.0.patched/qtbase/mkspecs/common/gcc-base.conf
+--- qt-everywhere-src-5.12.0.orig/qtbase/mkspecs/common/gcc-base.conf	2020-07-14 14:28:26.622839104 +0200
++++ qt-everywhere-src-5.12.0.patched/qtbase/mkspecs/common/gcc-base.conf	2020-07-16 13:01:19.661865147 +0200
+@@ -73,7 +73,7 @@
+ QMAKE_CXXFLAGS_LTCG_FATOBJECTS = $$QMAKE_CFLAGS_LTCG_FATOBJECTS
+ QMAKE_CXXFLAGS_DISABLE_LTCG   = $$QMAKE_CFLAGS_DISABLE_LTCG
+ 
+-QMAKE_LFLAGS           +=
++QMAKE_LFLAGS           += -Wl,--disable-new-dtags -Wl,-rpath,\'\$$ORIGIN/../\'
+ QMAKE_LFLAGS_DEBUG     +=
+ QMAKE_LFLAGS_APP       +=
+ QMAKE_LFLAGS_RELEASE   +=
+diff -ur qt-everywhere-src-5.12.0.orig/qtbase/mkspecs/common/gcc-base-unix.conf qt-everywhere-src-5.12.0.patched/qtbase/mkspecs/common/gcc-base-unix.conf
+--- qt-everywhere-src-5.12.0.orig/qtbase/mkspecs/common/gcc-base-unix.conf	2020-07-14 14:28:26.622839104 +0200
++++ qt-everywhere-src-5.12.0.patched/qtbase/mkspecs/common/gcc-base-unix.conf	2020-07-16 13:01:03.748992991 +0200
+@@ -12,8 +12,8 @@
+ 
+ include(gcc-base.conf)
+ 
+-QMAKE_LFLAGS_SHLIB     += -shared
+-QMAKE_LFLAGS_PLUGIN    += $$QMAKE_LFLAGS_SHLIB
++QMAKE_LFLAGS_SHLIB     += -shared -Wl,-rpath,\'\$$ORIGIN\'
++QMAKE_LFLAGS_PLUGIN    += -shared -Wl,-rpath,\'\$$ORIGIN/../../\'
+ QMAKE_LFLAGS_SONAME    += -Wl,-soname,
+ QMAKE_LFLAGS_THREAD    +=
+ QMAKE_LFLAGS_RPATH      = -Wl,-rpath,
