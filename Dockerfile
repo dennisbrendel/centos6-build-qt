@@ -10,7 +10,7 @@ ARG qt_string=qt-everywhere-src
 ARG qt_donor_major=5.9
 ARG qt_donor_minor=.9
 ARG qt_donor=${qt_donor_major}${qt_donor_minor}
-ARG qt_donor_string=qt-everywhere-opensource-src
+ARG qt_donor_string=qtwebengine-opensource-src
 
 ARG prefix=/opt
 ARG suffix=gcc831
@@ -42,11 +42,13 @@ RUN yum -y install centos-release-scl && \
     echo " done" && \
 
     rm md5sums.txt && \
-    echo "Downloading Qt5 ${qt_donor}:" && \
-      curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/single/qt-everywhere-opensource-src-${qt_donor}.tar.xz && \
-      curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/single/md5sums.txt && \
+    echo "Downloading Qt5 WebEngine ${qt_donor}:" && \
+      curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/submodules/${qt_donor_string}-${qt_donor}.tar.xz && \
+      curl --remote-name --location --silent http://download.qt.io/official_releases/qt/${qt_donor_major}/${qt_donor}/submodules/md5sums.txt && \
 
     echo -n "Verifying file.." && \
+      grep qtwebengine md5sums.txt > md5sums.txt.new && \
+      mv md5sums.txt.new md5sums.txt && \
       sed --in-place '/.*\.zip/d' md5sums.txt && \
       md5sum --quiet --check md5sums.txt && \
     echo " done" && \
@@ -54,13 +56,13 @@ RUN yum -y install centos-release-scl && \
     echo -n "Extracting Qt5 ${qt_version}" && \
       tar xf ${qt_string}-${qt_version}.tar.xz && \
     echo " done" && \
-    echo -n "Extracting Qt5 ${qt_donor}" && \
+    echo -n "Extracting Qt5 WebEngine ${qt_donor}" && \
       tar xf ${qt_donor_string}-${qt_donor}.tar.xz && \
     echo " done" && \
 
     echo -n "Implanting Qt5 ${qt_donor}'s QtWebEngine.." && \
       rm -rf ${qt_string}-${qt_version}/qtwebengine/ && \
-      mv ${qt_donor_string}-${qt_donor}/qtwebengine ${qt_string}-${qt_version}/ && \
+      mv ${qt_donor_string}-${qt_donor} ${qt_string}-${qt_version}/qtwebengine && \
     echo " done" && \
 
     # Remove the symbol versions for upward compatibility
