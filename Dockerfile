@@ -78,11 +78,11 @@ RUN yum -y install centos-release-scl && \
 
     mkdir build && cd build && \
     ../${qt_string}-${qt_version}/configure -opensource -confirm-license \
-                --prefix=$prefix/qt-${qt_version}-$suffix \
-                --libdir=$prefix/qt-${qt_version}-$suffix \
-                --bindir=$prefix/qt-${qt_version}-$suffix/bin \
-                --libexecdir=$prefix/qt-${qt_version}-$suffix/libexec \
-                --plugindir=$prefix/qt-${qt_version}-$suffix/plugins \
+                --prefix=$prefix/qt-${qt_version}-$suffix/lib \
+                --libdir=$prefix/qt-${qt_version}-$suffix/lib \
+                --bindir=$prefix/qt-${qt_version}-$suffix/lib/bin \
+                --libexecdir=$prefix/qt-${qt_version}-$suffix/lib/libexec \
+                --plugindir=$prefix/qt-${qt_version}-$suffix/lib/plugins \
                 -shared                      \
                 -c++std c++11                \
                 -platform linux-icc-64       \
@@ -160,6 +160,6 @@ RUN yum -y install centos-release-scl && \
     rm -rf $prefix/gcc*
 
 # We apparently lost those on the way
-RUN echo "#include \"qwebenginesettings.h\"" > $prefix/qt-${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineSettings && \
-    echo "#include \"qwebengineview.h\"" > $prefix/qt-${qt_version}-$suffix/include/QtWebEngineWidgets/QWebEngineView
+RUN echo "#include \"qwebenginesettings.h\"" > $prefix/qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineSettings && \
+    echo "#include \"qwebengineview.h\"" > $prefix/qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineView
 
