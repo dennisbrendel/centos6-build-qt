@@ -13,7 +13,8 @@ ARG qt_donor=${qt_donor_major}${qt_donor_minor}
 ARG qt_donor_string=qtwebengine-opensource-src
 
 ARG prefix=/opt
-ARG suffix=gcc831
+ARG suffix=${gcc}
+ARG qt_prefix=/p/hpc/psp/Qt
 
 WORKDIR /build/
 COPY versiontag5120.patch /build/
@@ -76,11 +77,11 @@ RUN yum -y install centos-release-scl && \
 
     mkdir build && cd build && \
     ../${qt_string}-${qt_version}/configure -opensource -confirm-license \
-                --prefix=$prefix/qt-${qt_version}-$suffix/lib \
-                --libdir=$prefix/qt-${qt_version}-$suffix/lib \
-                --bindir=$prefix/qt-${qt_version}-$suffix/lib/bin \
-                --libexecdir=$prefix/qt-${qt_version}-$suffix/lib/libexec \
-                --plugindir=$prefix/qt-${qt_version}-$suffix/lib/plugins \
+                --prefix=${qt_prefix}/Qt-${qt_version}-$suffix/lib \
+                --libdir=${qt_prefix}/Qt-${qt_version}-$suffix/lib \
+                --bindir=${qt_prefix}/Qt-${qt_version}-$suffix/lib/bin \
+                --libexecdir=${qt_prefix}/Qt-${qt_version}-$suffix/lib/libexec \
+                --plugindir=${qt_prefix}/Qt-${qt_version}-$suffix/lib/plugins \
                 -shared                      \
                 -c++std c++14                \
                 -platform linux-g++-64       \
@@ -158,6 +159,6 @@ RUN yum -y install centos-release-scl && \
     rm -rf $prefix/gcc*
 
 # We apparently lost those on the way
-RUN echo "#include \"qwebenginesettings.h\"" > $prefix/qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineSettings && \
-    echo "#include \"qwebengineview.h\"" > $prefix/qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineView
+RUN echo "#include \"qwebenginesettings.h\"" > ${qt_prefix}/Qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineSettings && \
+    echo "#include \"qwebengineview.h\"" > ${qt_prefix}/Qt-${qt_version}-$suffix/lib/include/QtWebEngineWidgets/QWebEngineView
 
