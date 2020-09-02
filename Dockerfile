@@ -26,6 +26,7 @@ COPY qtwebengine_rpath.patch /build/
 COPY qt_no_append_rpath.path /build/
 COPY DND_QTBUG-72844_52e0d9e.patch /build/
 COPY qtwebengine_suppress-icu-datapath-warning.patch /build/
+COPY qtwebengine_suppress-locales-datapath-warning.patch /build/
 
 ENV PATH=$prefix/$icc/bin:$prefix/$gcc/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/bin
 ENV LD_LIBRARY_PATH=$prefix/$icc/compilers_and_libraries/linux/lib/intel64_lin/:$prefix/$gcc/lib64
@@ -80,6 +81,7 @@ RUN yum -y install centos-release-scl && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
     patch -d ${qt_string}-${qt_version}/qtbase/ -p1 -i ../../DND_QTBUG-72844_52e0d9e.patch && \
     patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-icu-datapath-warning.patch && \
+    patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-locales-datapath-warning.patch && \
 
     mkdir build && cd build && \
     ../${qt_string}-${qt_version}/configure -opensource -confirm-license \
