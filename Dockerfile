@@ -18,7 +18,7 @@ ARG suffix=${icc}
 ARG qt_prefix=/p/hpc/psp/Qt
 
 WORKDIR /build/
-COPY versiontag5120.patch /build/
+COPY no-versiontag5120.patch /build/
 COPY intel19.patch /build/
 COPY intel19_rpath.patch /build/
 COPY intel19_qtwebengine599.patch /build/
@@ -74,7 +74,7 @@ RUN yum -y install centos-release-scl && \
     echo " done" && \
 
     # Fix build with Intel Compiler 19.0 and remove the symbol versions for upward compatibility
-    patch -d ${qt_string}-${qt_version} -p1 -i ../versiontag5120.patch && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../no-versiontag5120.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../intel19.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../intel19_rpath.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../intel19_qtwebengine599.patch && \
