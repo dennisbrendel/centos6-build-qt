@@ -52,4 +52,4 @@ patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppre
 patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-locales-datapath-warning.patch
 patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-resources-datapath-warning.patch
 
-tar cJpf Qt-${qt_version}_sharpreflections.tar.xz ${qt_string}-${qt_version}
+tar cJpf ${qt_string}-patched-${qt_version}.tar.xz ${qt_string}-${qt_version}
