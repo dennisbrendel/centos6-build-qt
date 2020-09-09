@@ -21,7 +21,7 @@ COPY no-versiontag5120.patch /build/
 COPY qtwebengine599.patch /build/
 COPY qtwebengine_rpath.patch /build/
 COPY gcc_rpath.patch /build/
-COPY qt_no_append_rpath.path /build/
+COPY qt_no_append_rpath.patch /build/
 COPY DND_QTBUG-72844_52e0d9e.patch /build/
 COPY qtwebengine_suppress-icu-datapath-warning.patch /build/
 COPY qtwebengine_suppress-locales-datapath-warning.patch /build/
@@ -75,7 +75,7 @@ RUN yum -y install centos-release-scl && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine599.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../qtwebengine_rpath.patch && \
     patch -d ${qt_string}-${qt_version} -p1 -i ../gcc_rpath.patch && \
-    patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.path && \
+    patch -d ${qt_string}-${qt_version} -p1 -i ../qt_no_append_rpath.patch && \
     patch -d ${qt_string}-${qt_version}/qtbase/ -p1 -i ../../DND_QTBUG-72844_52e0d9e.patch && \
     patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-icu-datapath-warning.patch && \
     patch -d ${qt_string}-${qt_version}/qtwebengine/ -p1 -i ../../qtwebengine_suppress-locales-datapath-warning.patch && \
