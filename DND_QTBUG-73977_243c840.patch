@@ -1,0 +1,13 @@
+diff --git a/src/widgets/kernel/qwidgetwindow.cpp b/src/widgets/kernel/qwidgetwindow.cpp
+index e9b749d..fbc71cd 100644
+--- a/src/widgets/kernel/qwidgetwindow.cpp
++++ b/src/widgets/kernel/qwidgetwindow.cpp
+@@ -878,8 +878,6 @@
+     const QPoint mapped = widget->mapFromGlobal(m_widget->mapToGlobal(event->pos()));
+     QDragEnterEvent translated(mapped, event->possibleActions(), event->mimeData(),
+                                event->mouseButtons(), event->keyboardModifiers());
+-    translated.setDropAction(event->dropAction());
+-    translated.setAccepted(event->isAccepted());
+     QGuiApplication::forwardEvent(m_dragTarget, &translated, event);
+     event->setAccepted(translated.isAccepted());
+     event->setDropAction(translated.dropAction());
