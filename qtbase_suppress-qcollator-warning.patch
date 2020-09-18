@@ -1,0 +1,14 @@
+diff -ur a/qtbase/src/corelib/tools/qcollator_posix.cpp b/qtbase/src/corelib/tools/qcollator_posix.cpp
+--- a/qtbase/src/corelib/tools/qcollator_posix.cpp	2020-07-14 14:28:28.007828395 +0200
++++ b/qtbase/src/corelib/tools/qcollator_posix.cpp	2020-09-18 15:14:53.303262738 +0200
+@@ -50,10 +50,6 @@
+ {
+     if (locale != QLocale())
+         qWarning("Only default locale supported with the posix collation implementation");
+-    if (caseSensitivity != Qt::CaseSensitive)
+-        qWarning("Case insensitive sorting unsupported in the posix collation implementation");
+-    if (numericMode)
+-        qWarning("Numeric mode unsupported in the posix collation implementation");
+     if (ignorePunctuation)
+         qWarning("Ignoring punctuation unsupported in the posix collation implementation");
+     dirty = false;
