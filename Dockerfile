@@ -16,6 +16,8 @@ ARG prefix=/opt
 ARG suffix=${gcc}
 ARG qt_prefix=/p/hpc/psp/Qt
 
+ARG build_type=release
+
 WORKDIR /build/
 COPY no-versiontag5120.patch /build/
 COPY qtwebengine599.patch /build/
@@ -93,6 +95,7 @@ RUN yum -y install centos-release-scl && \
                 --libexecdir=${qt_prefix}/Qt-${qt_version}-$suffix/lib/libexec \
                 --plugindir=${qt_prefix}/Qt-${qt_version}-$suffix/lib/plugins \
                 -shared                      \
+                -${build_type}               \
                 -c++std c++14                \
                 -platform linux-g++-64       \
                 -no-pch                      \
