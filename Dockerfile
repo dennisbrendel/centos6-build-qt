@@ -17,6 +17,8 @@ ARG prefix=/opt
 ARG suffix=${icc}
 ARG qt_prefix=/p/hpc/psp/Qt
 
+ARG build_type=release
+
 WORKDIR /build/
 COPY no-versiontag5120.patch /build/
 COPY intel19.patch /build/
@@ -99,6 +101,7 @@ RUN yum -y install centos-release-scl && \
                 -shared                      \
                 -c++std c++11                \
                 -platform linux-icc-64       \
+                -${build_type}               \
                 -no-pch                      \
                 -ssl                         \
                 -fontconfig                  \
