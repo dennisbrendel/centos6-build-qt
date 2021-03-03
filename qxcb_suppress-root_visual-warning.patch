@@ -1,6 +1,6 @@
 diff -ur qt-everywhere-src-5.12.0.a/qtbase/src/plugins/platforms/xcb/qxcbwindow.cpp qt-everywhere-src-5.12.0.b/qtbase/src/plugins/platforms/xcb/qxcbwindow.cpp
 --- qt-everywhere-src-5.12.0.a/qtbase/src/plugins/platforms/xcb/qxcbwindow.cpp	2018-12-03 12:15:26.000000000 +0100
-+++ qt-everywhere-src-5.12.0.b/qtbase/src/plugins/platforms/xcb/qxcbwindow.cpp	2021-02-19 10:49:03.273072206 +0100
++++ qt-everywhere-src-5.12.0.b/qtbase/src/plugins/platforms/xcb/qxcbwindow.cpp	2021-03-03 09:12:00.037495699 +0100
 @@ -312,8 +312,6 @@
              visual = platformScreen->visualForId(connection()->defaultVisualId());
              if (visual)
@@ -10,3 +10,11 @@ diff -ur qt-everywhere-src-5.12.0.a/qtbase/src/plugins/platforms/xcb/qxcbwindow.
          }
          if (!visual)
              visual = platformScreen->visualForId(m_visualId);
+@@ -378,7 +376,6 @@
+         visual = createVisual();
+ 
+     if (!visual) {
+-        qWarning() << "Falling back to using screens root_visual.";
+         visual = platformScreen->visualForId(platformScreen->screen()->root_visual);
+     }
+ 
